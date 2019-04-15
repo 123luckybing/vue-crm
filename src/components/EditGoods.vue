@@ -40,9 +40,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props: ["info","visible"],
-  data() {
+  props: ['info', 'visible'],
+  data () {
     return {
       form: {},
       formLabelWidth: '100px'
@@ -50,34 +51,34 @@ export default {
   },
   // 父组件通过调用接口将获得的数据通过props传给子组件，
   // 但是是异步的,所以updated再赋值一下
-  updated() {
+  updated () {
     this.form = this.info
   },
   methods: {
     // 取消编辑弹框
     cancelEdit () {
-      this.$emit("closeEdit")
+      this.$emit('closeEdit')
     },
     // 修改
     onSubmit () {
-      this.$refs["form"].validate((valid) => {
-        if(valid) {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
           const data = JSON.stringify(this.form)
-          this.$emit("closeEdit")
+          this.$emit('closeEdit')
           this.$refs['form'].resetFields()
-          axios.post('/goods/update', data ).then((res) => {
-            if(res.data.code === 0) {
+          axios.post('/goods/update', data).then((res) => {
+            if (res.data.code === 0) {
               this.$message({
-                message: "修改成功",
-                  type: 'success',
-                  onClose: () => {
-                    this.$emit('getList')
-                  }
-                })
+                message: '修改成功',
+                type: 'success',
+                onClose: () => {
+                  this.$emit('getList')
+                }
+              })
             } else {
               this.$message({
-                message: "修改失败",
-                  type: 'error'
+                message: '修改失败',
+                type: 'error'
               })
             }
           }).catch((err) => {
@@ -85,7 +86,7 @@ export default {
           })
         }
       })
-    },
+    }
   }
 }
 </script>

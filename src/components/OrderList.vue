@@ -54,15 +54,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       dataList: []
     }
   },
   methods: {
     // 请求列表
-    getList() {
+    getList () {
       axios.get('/order/list').then((res) => {
         this.dataList = res.data
       }).catch((err) => {
@@ -70,29 +71,29 @@ export default {
       })
     },
     // 删除
-    del(id) {
+    del (id) {
       const data = JSON.stringify({id: id})
       axios.post('/order/del', data).then((res) => {
-        if(res.data.code === 0) {
+        if (res.data.code === 0) {
           this.$message({
-          message: res.data.msg,
-          type: 'success',
-          onClose: () => {
-            this.getList()
-          }
-        })
+            message: res.data.msg,
+            type: 'success',
+            onClose: () => {
+              this.getList()
+            }
+          })
         } else {
           this.$message({
-          message: res.data.msg,
-          type: 'error'
-        })
+            message: res.data.msg,
+            type: 'error'
+          })
         }
       }).catch((err) => {
         console.log(err)
       })
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   }
 }

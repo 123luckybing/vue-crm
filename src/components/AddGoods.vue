@@ -45,11 +45,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props:["visible"],
-  data() {
+  props: ['visible'],
+  data () {
     return {
-      kindList:[],
+      kindList: [],
       form: {
         name: '',
         price: '',
@@ -62,36 +63,36 @@ export default {
   },
   methods: {
     // 关闭弹窗
-    cancel (){
+    cancel () {
       this.$emit('alertCancel') // 调用父组件的方法
     },
     // 确定提交
     submit () {
-      this.$refs["form"].validate((valid) => {
-          if (valid) {
-            const data = JSON.stringify(this.form)
-            axios.post('/goods/add', data).then((res) => {
-              this.$emit("alertCancel")
-              this.$refs['form'].resetFields()
-              this.$message({
-                message: res.data.msg,
-                type: 'success',
-                onClose: () => {
-                  this.$emit('getList')
-                }
-              })
-            }).catch((err) => {
-              console.log(err)
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          const data = JSON.stringify(this.form)
+          axios.post('/goods/add', data).then((res) => {
+            this.$emit('alertCancel')
+            this.$refs['form'].resetFields()
+            this.$message({
+              message: res.data.msg,
+              type: 'success',
+              onClose: () => {
+                this.$emit('getList')
+              }
             })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+          }).catch((err) => {
+            console.log(err)
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   },
-  beforeCreate() {
-    axios.post('/kind/list',{}).then((res) => {
+  beforeCreate () {
+    axios.post('/kind/list', {}).then((res) => {
       this.kindList = res.data.list
     }).catch((err) => {
       console.log(err)

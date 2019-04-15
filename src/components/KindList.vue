@@ -39,11 +39,12 @@
 
 <script>
 import KindAdd from './KindAdd'
+import axios from 'axios'
 export default {
   components: {
     KindAdd
   },
-  data() {
+  data () {
     return {
       dataList: [],
       dialogFormVisible: false
@@ -51,9 +52,9 @@ export default {
   },
   methods: {
     // 种类删除
-    del(id) {
+    del (id) {
       const data = JSON.stringify({ id: id })
-      axios.post('/kind/del', data).then((res) =>{
+      axios.post('/kind/del', data).then((res) => {
         if (res.data.code === 0) {
           this.$message({
             message: res.data.msg,
@@ -73,21 +74,21 @@ export default {
       })
     },
     // 种类增加弹框
-    addKind() {
+    addKind () {
       this.dialogFormVisible = true
     },
-    digCancel() {
+    digCancel () {
       this.dialogFormVisible = false
     },
-    getList() {
-      axios.post('/kind/list',{}).then((res) => {
-        this. dataList = res.data.list
+    getList () {
+      axios.post('/kind/list', {}).then((res) => {
+        this.dataList = res.data.list
       }).catch((err) => {
         console.log(err)
       })
     }
   },
-  mounted (){
+  mounted () {
     this.getList()
   }
 }

@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props: ['visible'],
-  data() {
+  data () {
     return {
       form: {
         name: ''
@@ -24,27 +25,27 @@ export default {
     }
   },
   methods: {
-    digCancel() {
-      this.$emit("digCancel")
+    digCancel () {
+      this.$emit('digCancel')
     },
-    submit() {
-      this.$refs["form"].validate((valid) => {
+    submit () {
+      this.$refs['form'].validate((valid) => {
         if (valid) {
           const data = JSON.stringify(this.form)
-          axios.post('/kind/add' ,data).then((res) => {
+          axios.post('/kind/add', data).then((res) => {
             console.log(res)
             if (res.data.code === 0) {
-              this.$emit("digCancel"),
+              this.$emit('digCancel')
               this.$refs['form'].resetFields()
               this.$message({
                 message: res.data.msg,
                 type: 'success',
-                  onClose: () => {
-                    this.$emit('getList')
+                onClose: () => {
+                  this.$emit('getList')
                 }
               })
             } else {
-              this.$emit("digCancel"),
+              this.$emit('digCancel')
               this.$message({
                 message: res.data.msg,
                 type: 'error'
@@ -63,5 +64,3 @@ export default {
 <style scoped>
 
 </style>
-
-

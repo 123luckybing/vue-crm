@@ -68,15 +68,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       dataList: []
     }
   },
   methods: {
     // 确认入库
-    ensure(item) {
+    ensure (item) {
       const data = JSON.stringify(item)
       axios.post('/recycle/ensure', data).then((res) => {
         if (res.data.code === 0) {
@@ -98,8 +99,8 @@ export default {
       })
     },
     // 删除
-    del(id) {
-      const data = JSON.stringify({id: id })
+    del (id) {
+      const data = JSON.stringify({ id: id })
       axios.post('/recycle/del', data).then((res) => {
         if (res.data.code === 0) {
           this.$message({
@@ -119,8 +120,8 @@ export default {
         console.log(err)
       })
     },
-    getList() {
-      axios.get('/recycle/find/by/open/id' ,{
+    getList () {
+      axios.get('/recycle/find/by/open/id', {
         params: {
           openId: 0
         }
@@ -131,7 +132,7 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   }
 }

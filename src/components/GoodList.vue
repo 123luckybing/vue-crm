@@ -71,9 +71,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 import AddGoods from './AddGoods'
 import EditGoods from './EditGoods'
+import axios from 'axios'
 export default {
   components: {
     AddGoods,
@@ -101,7 +101,7 @@ export default {
       })
     },
     // 修改
-    edit(id) {
+    edit (id) {
       axios.get('/goods/get', {
         params: {
           id: id
@@ -118,7 +118,7 @@ export default {
       this.addVisible = false
     },
     // 增加弹框出现
-    alertShow() {
+    alertShow () {
       this.addVisible = true
     },
     // 删除
