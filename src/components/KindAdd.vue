@@ -4,6 +4,9 @@
     <el-form-item label="种类名称" :label-width="formLabelWidth" :rules="[{ required: true, message: '请填写种类名称'}]">
       <el-input v-model="form.name" autocomplete="off"></el-input>
     </el-form-item>
+    <el-form-item label="上传图片" :label-width="formLabelWidth">
+      <el-input v-model="form.image" autocomplete="off"></el-input>
+    </el-form-item>
   </el-form>
   <div slot="footer" class="dialog-footer">
     <el-button @click="digCancel">取 消</el-button>
@@ -19,7 +22,8 @@ export default {
   data () {
     return {
       form: {
-        name: ''
+        name: '',
+        image: ''
       },
       formLabelWidth: '100px'
     }
@@ -33,7 +37,6 @@ export default {
         if (valid) {
           const data = JSON.stringify(this.form)
           axios.post('/kind/add', data).then((res) => {
-            console.log(res)
             if (res.data.code === 0) {
               this.$emit('digCancel')
               this.$refs['form'].resetFields()
