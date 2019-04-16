@@ -15,6 +15,9 @@
       <el-form-item label="数量" :label-width="formLabelWidth" prop='number' :rules="[{ required: true, message: '请输入数量' }]">
        <el-input v-model="form.number" autocomplete="off"></el-input>
       </el-form-item>
+      <el-form-item label="上传图片" :label-width="formLabelWidth" prop='image'>
+       <el-input v-model="form.image" autocomplete="off"></el-input>
+      </el-form-item>
       <el-form-item label="简介" :label-width="formLabelWidth" prop='remark'>
         <el-input
           type="textarea"
@@ -56,7 +59,8 @@ export default {
         price: '',
         number: '',
         kind: '',
-        remark: ''
+        remark: '',
+        image: ''
       },
       formLabelWidth: '100px'
     }
