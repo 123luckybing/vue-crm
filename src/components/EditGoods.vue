@@ -17,6 +17,13 @@
          >
         </el-input>
       </el-form-item>
+      <el-form-item label="修改图片:" :label-width="formLabelWidth" prop="image">
+        <el-input
+          placeholder="请输入图片地址"
+          v-model="form.image"
+         >
+        </el-input>
+      </el-form-item>
       <el-form-item label="价格:" :label-width="formLabelWidth" prop="price">
         <el-input
           placeholder="请输入内容"

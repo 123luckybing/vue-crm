@@ -1,10 +1,26 @@
 <template >
   <div>
-    <el-button
-      class='btn'
-      type="primary"
-      @click="alertShow"
-    >增加</el-button>
+    <div class='title'>
+      <el-button
+        class='btn'
+        type="primary"
+        @click="alertShow"
+      >增加</el-button>
+      <div class='search'>
+        <span>书籍名称：</span>
+        <el-input v-model="input" placeholder="请输入书籍名称"></el-input>
+        <el-button
+          class='btn'
+          type="primary"
+          @click="goodSearch"
+        >搜索</el-button>
+        <el-button
+          class='btn'
+          type="primary"
+          @click="clearInput"
+        >清空</el-button>
+      </div>
+    </div>
     <el-table
       :data="dataList"
       border
@@ -84,7 +100,8 @@ export default {
       dataList: [],
       addVisible: false,
       detailInfo: {},
-      editVisible: false
+      editVisible: false,
+      input: ''
     }
   },
   methods: {
@@ -135,6 +152,20 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
+    },
+    // 商品搜索
+    goodSearch () {
+      console.log(this.input)
+      const data = JSON.stringify({name: this.input, kind: ''})
+      axios.post('/goods/list', data).then((res) => {
+        this.dataList = res.data.list
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    // 清空
+    clearInput () {
+      this.input = ''
     }
   },
   mounted () {
@@ -154,5 +185,20 @@ export default {
 
 .btn {
   margin: 20px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search .el-input {
+  width: 150px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

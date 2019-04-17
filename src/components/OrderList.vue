@@ -39,7 +39,8 @@
         label="创建时间">
       </el-table-column>
       <el-table-column
-      label="操作"
+        label="操作"
+        width=150
       >
         <template slot-scope="scope">
           <el-button
@@ -48,7 +49,14 @@
             size="small">
             删除
           </el-button>
-      </template>
+          <el-button
+            @click="sure(scope.row.id)"
+            v-if="scope.row.status === '已付款'"
+            type="text"
+            size="small">
+            确认发货
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
 </template>
@@ -62,6 +70,31 @@ export default {
     }
   },
   methods: {
+    // 确认发货
+    sure (id) {
+      axios.get('/order/send/goods', {
+        params: {
+          id: id
+        }
+      }).then((res) => {
+        if (res.data.code === 1) {
+          this.$message({
+            message: res.data.msg,
+            type: 'error'
+          })
+        } else {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+            onClose: () => {
+              this.getList()
+            }
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
     // 请求列表
     getList () {
       axios.get('/order/list').then((res) => {
