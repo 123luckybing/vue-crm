@@ -8,7 +8,16 @@
       >增加</el-button>
       <div class='search'>
         <span>书籍名称：</span>
-        <el-input v-model="input" placeholder="请输入书籍名称"></el-input>
+        <el-input class='input' v-model="input" placeholder="请输入书籍名称"></el-input>
+         <span>种类名称：</span>
+         <el-select v-model="value" placeholder="请选择">
+          <el-option
+            v-for="item in options"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name">
+          </el-option>
+        </el-select>
         <el-button
           class='btn'
           type="primary"
@@ -51,6 +60,10 @@
       <el-table-column
         prop="kind"
         label="种类">
+      </el-table-column>
+      <el-table-column
+        prop="isbn"
+        label="书号">
       </el-table-column>
       <el-table-column
         prop="remark"
@@ -101,7 +114,10 @@ export default {
       addVisible: false,
       detailInfo: {},
       editVisible: false,
-      input: ''
+      input: '',
+      kind: '',
+      options: [],
+      value: ''
     }
   },
   methods: {
@@ -155,8 +171,7 @@ export default {
     },
     // 商品搜索
     goodSearch () {
-      console.log(this.input)
-      const data = JSON.stringify({name: this.input, kind: ''})
+      const data = JSON.stringify({name: this.input, kind: this.value})
       axios.post('/goods/list', data).then((res) => {
         this.dataList = res.data.list
       }).catch((err) => {
@@ -170,6 +185,11 @@ export default {
   },
   mounted () {
     this.getList()
+    axios.post('/kind/list', {}).then((res) => {
+      this.options = res.data.list
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 }
 </script>
@@ -200,5 +220,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.input {
+  margin-right: 10px;
 }
 </style>

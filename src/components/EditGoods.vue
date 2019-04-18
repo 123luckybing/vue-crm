@@ -10,6 +10,13 @@
       <el-form-item label="种类:" :label-width="formLabelWidth" prop="kind">
         <div>{{ form.kind }}</div>
       </el-form-item>
+      <el-form-item label="书号:" :label-width="formLabelWidth" prop="isbn">
+        <el-input
+          placeholder="请输入书号"
+          v-model="form.isbn"
+         >
+        </el-input>
+      </el-form-item>
       <el-form-item label="库存:" :label-width="formLabelWidth" prop="number">
         <el-input
           placeholder="请输入内容"

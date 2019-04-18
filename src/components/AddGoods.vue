@@ -9,6 +9,9 @@
           <el-option v-for="(item, index) in kindList" :key="index" :label="item.name" :value="item.name" ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="书号" :label-width="formLabelWidth" prop='isbn' :rules="[{ required: true, message: '请输入书号' }]">
+        <el-input v-model="form.isbn" autocomplete="off"></el-input>
+      </el-form-item>
       <el-form-item label="价格" :label-width="formLabelWidth" prop='price' :rules="[{ required: true, message: '请输入价格价格' }]">
           <el-input v-model="form.price" autocomplete="off"></el-input>
       </el-form-item>
@@ -47,7 +50,8 @@ export default {
         number: '',
         kind: '',
         remark: '',
-        image: ''
+        image: '',
+        isbn: ''
       },
       formLabelWidth: '100px'
     }
