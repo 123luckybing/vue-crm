@@ -35,7 +35,7 @@
         label="商品总价">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="userName"
         label="买家姓名">
       </el-table-column>
       <el-table-column
@@ -106,7 +106,8 @@ export default {
     // 请求列表
     getList () {
       axios.get('/order/list').then((res) => {
-        this.dataList = res.data
+        console.log(res)
+        this.dataList = res.data.orderList
       }).catch((err) => {
         console.log(err)
       })
