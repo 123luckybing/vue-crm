@@ -35,6 +35,14 @@
         label="商品总价">
       </el-table-column>
       <el-table-column
+        prop="name"
+        label="买家姓名">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+      <el-table-column
         prop="createTime"
         label="创建时间">
       </el-table-column>

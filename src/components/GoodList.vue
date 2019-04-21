@@ -181,6 +181,7 @@ export default {
     // 清空
     clearInput () {
       this.input = ''
+      this.value = ''
     }
   },
   mounted () {
